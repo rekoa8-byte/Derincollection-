@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Derin Collection</title>
+    <meta name="description" content="سیستەمی فرۆشتنی مۆدێرنی Derin Collection بۆ کڕیار و بەڕێوەبەر">
+    <meta property="og:title" content="Derin Collection">
+    <meta property="og:description" content="سیستەمی فرۆشتنی مۆدێرنی Derin Collection بۆ کڕیار و بەڕێوەبەر">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: {
+                colors: { 
+                    derinOrange: '#FF6B00', 
+                    derinDark: '#1A1A1A',
+                    derinOlive: '#3A4A2A',
+                    derinOliveDark: '#2E3B22'
+                },
+                fontFamily: { vazir: ['Vazirmatn', 'sans-serif'] }
+            }}
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Vazirmatn', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        .transition-all { transition: all 0.3s ease; }
+        .dark body { background-color: #111827; color: #f3f4f6; }
+        .dark .bg-white { background-color: #1f2937; }
+        .dark .bg-gray-50 { background-color: #374151; }
+        .dark .bg-gray-100 { background-color: #4b5563; }
+        .dark .text-gray-600 { color: #d1d5db; }
+        .dark .border-gray-100, .dark .border-gray-300 { border-color: #4b5563; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .carousel-slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            transform: scale(1.05); z-index: 0; cursor: pointer;
+            background-size: cover; background-position: center;
+        }
+        .carousel-slide.active { opacity: 1; transform: scale(1); z-index: 10; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background-color: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.3s ease; }
+        .dot.active { background-color: #FF6B00; width: 20px; border-radius: 12px; }
+        
+        .cart-badge { background: linear-gradient(135deg, #FF6B00, #FF8C42); box-shadow: 0 2px 6px rgba(255,107,0,0.5); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        
+        .modal-overlay { animation: fadeIn 0.3s ease; }
+        .modal-content { animation: slideUp 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .image-preview-item { position: relative; border-radius: 12px; overflow: hidden; border: 2px solid #e5e7eb; }
+        .dark .image-preview-item { border-color: #4b5563; }
+        .image-preview-item img { width: 100%; height: 100%; object-fit: cover; }
+        .image-preview-remove {
+            position: absolute; top: 4px; left: 4px;
+            background: rgba(239,68,68,0.9); color: white;
+            width: 22px; height: 22px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 12px; transition: all 0.2s;
+        }
+        .image-preview-remove:hover { background: rgba(220,38,38,1); transform: scale(1.1); }
+        
+        .status-available { background: linear-gradient(135deg, #10b981, #059669); }
+        .status-out { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .status-soon { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        
+        .order-pending { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .order-completed { background: linear-gradient(135deg, #10b981, #059669); }
+        .order-cancelled { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        
+        .color-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1px rgba(0,0,0,0.2); cursor: pointer; transition: all 0.2s; }
+        .color-dot.active { box-shadow: 0 0 0 2px #FF6B00; }
+        
+        .file-upload-btn { border: 2px dashed #d1d5db; transition: all 0.3s; }
+        .file-upload-btn:hover { border-color: #FF6B00; background: rgba(255,107,0,0.05); }
+        .dark .file-upload-btn { border-color: #4b5563; }
+        .dark .file-upload-btn:hover { border-color: #FF6B00; }
+        
+        .compact-menu { width: 215px; max-width: 82vw; font-size: 13px; }
+        .receipt-btn {
+            background: linear-gradient(135deg, #059669, #0d9488) !important;
+            box-shadow: 0 2px 6px rgba(5,150,105,0.35) !important;
+        }
+        .receipt-btn:hover {
+            background: linear-gradient(135deg, #10b981, #14b8a6) !important;
+        }
+        .notif-badge { background: #ef4444; animation: bell-shake 1s infinite; }
+        @keyframes bell-shake { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
+        
+        .count-badge {
+            background: linear-gradient(135deg, #FF6B00, #FF8C42);
+            color: white; padding: 2px 10px; border-radius: 12px;
+            font-size: 12px; font-weight: bold; display: inline-block;
+            box-shadow: 0 2px 6px rgba(255,107,0,0.3);
+        }
+        
+        .like-btn {
+            position: absolute;
+            background: rgba(255,255,255,0.95); width: 23px; height: 23px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.18);
+            transition: all 0.2s; z-index: 15; font-size: 10px;
+        }
+        .dark .like-btn { background: rgba(31,41,55,0.95); }
+        .like-btn.liked { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+        .like-btn.liked i { color: white; }
+        .like-count {
+            position: absolute; bottom: -3px; right: -4px;
+            background: #FF6B00; color: white; font-size: 7.5px; font-weight: bold;
+            min-width: 13px; height: 13px; padding: 0 2px; border-radius: 7px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid white;
+        }
+        .dark .like-count { border-color: #1f2937; }
+        
+        .menu-footer {
+            border-top: 2px solid #FF6B00; padding: 12px; text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(255,107,0,0.05));
+        }
+        .menu-footer p { font-size: 11px; color: #9ca3af; line-height: 1.6; margin: 0; }
+        .menu-footer .dev-name { color: #FF6B00; font-weight: bold; font-size: 12px; }
+        
+        @keyframes heartBeat {
+            0% { transform: scale(1); } 25% { transform: scale(1.3); }
+            50% { transform: scale(1); } 75% { transform: scale(1.2); } 100% { transform: scale(1); }
+        }
+        .heart-beat { animation: heartBeat 0.6s ease; }
+        
+        .derin-header {
+            background: linear-gradient(135deg, #3A4A2A 0%, #2E3B22 100%);
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 4px 20px rgba(58,74,42,0.3);
+            padding: 12px 16px; margin: 0 8px; margin-top: 8px;
+        }
+        
+        .derin-logo-circle {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: white; border: 3px solid #FF6B00;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(255,107,0,0.4);
+            overflow: hidden; flex-shrink: 0;
+        }
+        .derin-logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .derin-logo-circle .fallback-logo { color: #FF6B00; font-size: 9px; font-weight: 900; line-height: 1.1; text-align: center; font-style: italic; }
+        
+        .derin-title { color: white; font-weight: 900; font-size: 20px; letter-spacing: 0.5px; line-height: 1; text-align: right; }
+        .derin-title .script { font-family: 'Dancing Script', cursive; color: #FF6B00; font-size: 22px; display: block; margin-top: 2px; }
+        
+        .header-icon-btn {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(255,255,255,0.12);
+            display: flex; align-items: center; justify-content: center;
+            color: #FF6B00; cursor: pointer; transition: all 0.2s;
+            position: relative; backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .header-icon-btn:hover { background: rgba(255,107,0,0.25); }
+        
+        .header-badge {
+            position: absolute; top: -4px; right: -4px;
+            background: #FF6B00; color: white; font-size: 11px; font-weight: bold;
+            min-width: 20px; height: 20px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid #3A4A2A; padding: 0 4px;
+        }
+        
+        .derin-bottom-nav {
+            background: linear-gradient(135deg, #3A4A2A 0%, #2E3B22 100%);
+            border-radius: 25px 25px 0 0; padding: 10px 12px 8px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            display: flex; justify-content: space-around; align-items: center;
+        }
+        
+        .derin-nav-btn {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 6px 10px; border-radius: 15px;
+            color: rgba(255,140,0,0.55); cursor: pointer;
+            transition: all 0.25s; position: relative; min-width: 55px;
+        }
+        .derin-nav-btn i { font-size: 20px; }
+        .derin-nav-btn span { font-size: 10px; margin-top: 3px; font-weight: bold; }
+        .derin-nav-btn.active { background: rgba(255,255,255,0.12); color: #FF6B00; }
+        
+        .derin-nav-btn .nav-badge {
+            position: absolute; top: 2px; right: 8px;
+            background: #FF6B00; color: white; font-size: 10px; font-weight: bold;
+            min-width: 18px; height: 18px; border-radius: 9px;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid #3A4A2A; padding: 0 4px;
+        }
+        
+        .categories-tab-container {
+            background: linear-gradient(135deg, #F5F1E8 0%, #EDE6D3 100%);
+            border: 2px solid #E8E0CC; border-radius: 24px;
+            padding: 10px 6px;
+            box-shadow: 0 4px 15px rgba(58,74,42,0.06);
+            position: relative; overflow: hidden;
+        }
+        .categories-tab-container::before {
+            content: ''; position: absolute; top: 0; right: 0; left: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, #FF6B00, transparent);
+            opacity: 0.4;
+        }
+        .dark .categories-tab-container { background: linear-gradient(135deg, #1f2937 0%, #111827 100%); border-color: #374151; }
+        
+        /* پۆلێن بە بێ جووڵەی بەرز و نزم - تەنها سکرۆلی ئاسۆیی */
+        .categories-scroll {
+            display: flex; gap: 14px; overflow-x: auto; overflow-y: hidden;
+            padding: 4px 6px; scrollbar-width: none; scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            align-items: center;
+        }
+        .categories-scroll::-webkit-scrollbar { display: none; }
+        
+        .category-item {
+            display: flex; flex-direction: column; align-items: center;
+            cursor: pointer; flex-shrink: 0; min-width: 76px;
+            transform: none !important;
+            user-select: none;
+        }
+        .category-item:hover, .category-item:active, .category-item:focus {
+            transform: none !important;
+        }
+        
+        .category-circle {
+            width: 68px; height: 68px; border-radius: 50%;
+            overflow: hidden; border: 2.5px solid #FFFFFF;
+            background: #FFFFFF; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transform: none !important;
+            transition: border-color 0.2s ease;
+        }
+        .category-item.active .category-circle {
+            border-color: #FF6B00;
+            box-shadow: 0 0 0 3px rgba(255,107,0,0.25);
+            transform: none !important;
+        }
+        .category-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .category-emoji { font-size: 30px; line-height: 1; }
+        
+        .category-name {
+            margin-top: 6px; font-size: 12px; font-weight: 800;
+            color: #2E3B22; text-align: center;
+            padding: 2px 8px; border-radius: 8px; white-space: nowrap;
+            line-height: 1.4;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .category-item.active .category-name {
+            color: #FFFFFF;
+            background: #FF6B00;
+        }
+        .dark .category-circle { border-color: #374151; background: #1f2937; }
+        .dark .category-name { color: #d1d5db; }
+        .dark .category-item.active .category-name { color: #FFFFFF; }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            box-shadow: 0 4px 12px rgba(37,211,102,0.4);
+            cursor: pointer;
+        }
+        .whatsapp-btn:hover { box-shadow: 0 6px 20px rgba(37,211,102,0.6); }
+        
+        .receipt-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 4px 12px rgba(59,130,246,0.4);
+            cursor: pointer;
+        }
+        .receipt-btn:hover { box-shadow: 0 6px 20px rgba(59,130,246,0.6); }
+        
+        /* پسوولە */
+        .receipt-paper {
+            background: #FFFFFF;
+            color: #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .receipt-paper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: repeating-linear-gradient(90deg, #3A4A2A 0, #3A4A2A 15px, #FF6B00 15px, #FF6B00 30px);
+        }
+        
+        .receipt-header {
+            background: linear-gradient(135deg, #3A4A2A 0%, #2E3B22 100%);
+            color: #FFFFFF;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .receipt-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 100px;
+            font-weight: 900;
+            color: rgba(255,107,0,0.04);
+            pointer-events: none;
+            white-space: nowrap;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .receipt-divider {
+            border-top: 2px dashed #d1d5db;
+            margin: 12px 0;
+        }
+        
+        .receipt-divider-solid {
+            border-top: 2px solid #3A4A2A;
+            margin: 12px 0;
+        }
+        
+        /* چاپ */
+        @media print {
+            body * { visibility: hidden !important; }
+            #receiptModal, #receiptModal * { visibility: visible !important; }
+            #receiptPrintArea, #receiptPrintArea * { visibility: visible !important; }
+            #receiptPrintArea {
+                position: fixed !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: white !important;
+                z-index: 99999 !important;
+            }
+            .no-print { display: none !important; }
+            .receipt-paper {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+            @page {
+                margin: 10mm;
+                size: A4;
+            }
+        }
+    </style>
+</head>
+<body class="pb-20 text-derinDark bg-gray-50 dark:bg-gray-900 dark:text-white">
+
+    <!-- مینووی لاتەنیشت -->
+    <div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden transition-opacity" onclick="toggleMenu()"></div>
+    <div id="sidebarMenu" class="fixed top-0 right-0 h-full compact-menu bg-white dark:bg-gray-800 z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="px-3 py-2.5 border-b dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
+            <h2 class="font-bold text-xs text-derinOrange" data-i18n="menu_title">مینووی سەرەکی</h2>
+            <button onclick="toggleMenu()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-700/80 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center text-gray-700 hover:text-black dark:text-gray-200 dark:hover:text-white text-2xl font-black leading-none cursor-pointer transition-all shadow-sm active:scale-95" aria-label="Close menu" title="داخستنی مینوو">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <div class="flex-1 overflow-y-auto px-3 py-2.5 space-y-2.5">
+            <div>
+                <p class="text-[11px] text-gray-500 mb-1.5 font-bold" data-i18n="language">زمان</p>
+                <div class="flex gap-1">
+                    <button onclick="changeLanguage('ckb')" id="btn-lang-ckb" class="flex-1 py-1 rounded-md border dark:border-gray-600 font-bold text-[11px] hover:bg-derinOrange hover:text-white transition-all cursor-pointer">کوردی</button>
+                    <button onclick="changeLanguage('ar')" id="btn-lang-ar" class="flex-1 py-1 rounded-md border dark:border-gray-600 font-bold text-[11px] hover:bg-derinOrange hover:text-white transition-all cursor-pointer">عەرەبی</button>
+                    <button onclick="changeLanguage('en')" id="btn-lang-en" class="flex-1 py-1 rounded-md border dark:border-gray-600 font-bold text-[11px] hover:bg-derinOrange hover:text-white transition-all cursor-pointer">En</button>
+                </div>
+            </div>
+            <div class="flex justify-between items-center py-1.5 border-t dark:border-gray-700">
+                <span class="font-bold text-xs" data-i18n="theme">ڕووکار</span>
+                <button onclick="toggleTheme()" class="bg-gray-200 dark:bg-gray-700 p-1 rounded-full w-7 h-7 flex items-center justify-center cursor-pointer">
+                    <i id="themeIcon" class="fa-solid fa-moon text-xs"></i>
+                </button>
+            </div>
+            <div class="pt-2 border-t dark:border-gray-700">
+                <button onclick="showAdminLogin()" class="w-full bg-derinOlive text-white py-1.5 rounded-lg font-bold text-[11px] flex items-center justify-center gap-1.5 cursor-pointer shadow-sm hover:opacity-95">
+                    <i class="fa-solid fa-user-shield text-xs"></i> <span data-i18n="admin_login">چوونەژوورەوەی بەڕێوەبەر</span>
+                </button>
+            </div>
+        </div>
+        <div class="menu-footer py-2 text-[10px]">
+            <p data-i18n="system_by">دروستکردنی سیستەم</p>
+            <p class="dev-name font-bold text-derinOrange text-[11px]">ڕێباز طیب مصطفی</p>
+            <p>© 2026</p>
+        </div>
+    </div>
+
+    <!-- هیدەری سەرەکی جێگیر بۆ هەموو بەشەکانی کڕیار (سەرەکی، داواکاری، پەیوەندی، سەبەتە) -->
+    <header id="mainHeader" class="derin-header sticky top-0 z-40">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="header-icon-btn" onclick="toggleMenu()" title="مینوو"><i class="fa-solid fa-bars text-base"></i></div>
+                <div class="header-icon-btn" onclick="showLikedProducts()" title="زۆرترین لایک"><i class="fa-solid fa-heart text-base text-red-500"></i></div>
+                <div class="header-icon-btn relative" onclick="showCartApp()" title="سەبەتەی کڕین">
+                    <i class="fa-solid fa-cart-shopping text-base"></i>
+                    <span id="cartBadge" class="header-badge" style="display:none;">0</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="derin-title">Derin<span class="script">Collection</span></div>
+                <div class="derin-logo-circle" id="logoCircle"><div class="fallback-logo">Derin<br>Collection</div></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- بەشی سەرەکی کڕیار -->
+    <div id="customerApp">
+        <div class="relative m-4 h-56 rounded-2xl overflow-hidden shadow-lg">
+            <div class="absolute inset-0" id="heroCarousel"></div>
+            <div class="absolute bottom-4 left-0 right-0 flex justify-center items-center gap-2 z-30" id="carouselDots"></div>
+        </div>
+
+        <div class="px-4 mb-4">
+            <h3 class="font-bold mb-3 flex items-center gap-2" style="color:#2E3B22;">
+                <i class="fa-solid fa-tags text-derinOrange"></i>
+                <span data-i18n="categories">پۆلێنەکان</span>
+            </h3>
+            <div class="categories-tab-container">
+                <div class="categories-scroll" id="categoryList"></div>
+            </div>
+        </div>
+
+        <div class="px-4">
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="font-bold flex items-center gap-2">
+                    <span data-i18n="latest_products">نوێترین بەرهەمەکان</span>
+                    <span id="productCountBadge" class="count-badge">0</span>
+                </h3>
+            </div>
+            <div class="relative mb-4">
+                <i class="fa-solid fa-magnifying-glass absolute right-3 top-3 text-gray-400"></i>
+                <input type="text" id="searchInput" oninput="searchProducts()" data-i18n-placeholder="search_placeholder" placeholder="گەڕان..." class="w-full bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl py-2 pr-10 pl-4 text-sm">
+            </div>
+            <div class="grid grid-cols-2 gap-4" id="productGrid"></div>
+        </div>
+    </div>
+
+    <!-- مۆداڵی لایککراوەکان -->
+    <div id="likedModal" class="hidden fixed inset-0 bg-black/80 z-[70] flex items-end justify-center modal-overlay" onclick="if(event.target === this) closeLikedModal()">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-lg rounded-t-3xl modal-content max-h-[92vh] overflow-y-auto">
+            <div class="sticky top-0 flex justify-between items-center p-4 z-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-b dark:border-gray-700">
+                <h3 class="font-black text-lg text-red-500 flex items-center gap-2"><i class="fa-solid fa-heart"></i> <span data-i18n="most_liked">زۆرترین لایککراوەکان</span></h3>
+                <button onclick="closeLikedModal()" class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center text-gray-500 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors cursor-pointer" title="داخستن">
+                    <i class="fa-solid fa-xmark text-lg leading-none"></i>
+                </button>
+            </div>
+            <div id="likedModalContent" class="p-4"></div>
+        </div>
+    </div>
+
+    <!-- مۆداڵی بەرهەم -->
+    <div id="productModal" class="hidden fixed inset-0 bg-black/80 z-[70] flex items-end justify-center modal-overlay" onclick="if(event.target === this) closeProductModal()">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-lg rounded-t-3xl modal-content max-h-[92vh] overflow-y-auto">
+            <div class="sticky top-0 flex justify-between items-center p-4 z-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-b dark:border-gray-700">
+                <h3 class="font-black text-lg text-derinOrange" data-i18n="product_info">زانیاری بەرهەم</h3>
+                <button onclick="closeProductModal()" class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center text-gray-500 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors cursor-pointer" title="داخستن">
+                    <i class="fa-solid fa-xmark text-lg leading-none"></i>
+                </button>
+            </div>
+            <div id="productModalContent"></div>
+        </div>
+    </div>
+
+    <!-- مۆداڵی دەستکاری بەرهەم -->
+    <div id="productEditModal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-[80] flex items-end justify-center modal-overlay">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-lg rounded-t-3xl modal-content max-h-[92vh] overflow-y-auto">
+            <div class="sticky top-0 flex justify-between items-center p-4 z-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-b dark:border-gray-700">
+                <h3 class="font-black text-lg text-derinOrange"><i class="fa-solid fa-pen"></i> <span data-i18n="edit_product">دەستکاریکردنی بەرهەم</span></h3>
+                <button onclick="closeProductEditModal()" class="text-gray-400 text-3xl leading-none cursor-pointer">&times;</button>
+            </div>
+            <div class="p-4 space-y-3">
+                <div><label class="text-sm font-bold block mb-1" data-i18n="prod_name">ناوی بەرهەم *</label>
+                <input type="text" id="editProdName" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                <div><label class="text-sm font-bold block mb-1" data-i18n="prod_desc">پێناسەی بەرهەم *</label>
+                <textarea id="editProdDescription" rows="3" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm resize-none"></textarea></div>
+                <div>
+                    <label class="text-sm font-bold block mb-1" data-i18n="prod_price_dinar">نرخ (دینار) *</label>
+                    <input type="number" id="editProdPrice" oninput="calculateEditDiscountPreview()" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm">
+                </div>
+                <div class="bg-orange-50/70 dark:bg-gray-700/60 p-3 rounded-xl border border-orange-200 dark:border-gray-600">
+                    <label class="text-xs font-bold block mb-2 text-derinOrange"><i class="fa-solid fa-tag"></i> نرخی داشکان</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[11px] font-bold block mb-1 text-gray-600 dark:text-gray-300">داشکاندن بە دینار (د.ع)</label>
+                            <input type="number" id="editProdDiscountIqd" placeholder="0" oninput="onEditDiscountIqdInput()" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm">
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-bold block mb-1 text-gray-600 dark:text-gray-300">داشکاندن بە دۆلار ($)</label>
+                            <input type="number" step="0.5" id="editProdDiscountUsd" placeholder="0" oninput="onEditDiscountUsdInput()" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm">
+                        </div>
+                    </div>
+                    <div id="editProdDiscountPreview" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mt-2 bg-emerald-50 dark:bg-emerald-950/40 p-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800/50 hidden">
+                        <i class="fa-solid fa-circle-check"></i> نرخی فرۆشتن: <span id="editProdFinalPrice">0</span> دینار (<span id="editProdDiscountPct">0</span>% داشکاندن)
+                    </div>
+                    <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-1.5 leading-tight">هەرکامێکیان بنووسیت لە نرخەکە دادەشکێنرێت (1$ = 1,500 دینار)</p>
+                </div>
+                <div><label class="text-sm font-bold block mb-1" data-i18n="prod_category">پۆلێن *</label>
+                <select id="editProdCategory" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></select></div>
+                <div><label class="text-sm font-bold block mb-1" data-i18n="prod_status">دۆخی بەرهەم *</label>
+                <select id="editProdStatus" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm">
+                    <option value="available" data-i18n="status_available">✅ بەردەست</option>
+                    <option value="out_of_stock" data-i18n="status_out">❌ نەماوە</option>
+                    <option value="coming_soon" data-i18n="status_soon">⏳ بەم زوانە</option>
+                </select></div>
+                <div><label class="text-sm font-bold block mb-2"><i class="fa-solid fa-images text-derinOrange"></i> <span data-i18n="prod_images">وێنەکان</span></label>
+                <div id="editProdImagesPreview" class="grid grid-cols-4 gap-2 mb-2"></div>
+                <label class="file-upload-btn flex flex-col items-center justify-center p-3 rounded-xl cursor-pointer">
+                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-derinOrange mb-1"></i>
+                    <span class="text-xs font-bold text-gray-600 dark:text-gray-300" data-i18n="upload_image">زیادکردنی وێنە</span>
+                    <input type="file" id="editProdImages" accept="image/*" multiple onchange="handleEditImageUpload(event)" class="hidden">
+                </label></div>
+                <div><label class="text-sm font-bold block mb-2"><i class="fa-solid fa-video text-derinOrange"></i> <span data-i18n="prod_video">ڤیدیۆ</span></label>
+                <div id="editProdVideoPreview" class="mb-2"></div>
+                <label class="file-upload-btn flex flex-col items-center justify-center p-3 rounded-xl cursor-pointer">
+                    <i class="fa-solid fa-file-video text-2xl text-derinOrange mb-1"></i>
+                    <span class="text-xs font-bold text-gray-600 dark:text-gray-300" data-i18n="upload_video">هەڵبژاردنی ڤیدیۆ</span>
+                    <input type="file" id="editProdVideo" accept="video/*" onchange="handleEditVideoUpload(event)" class="hidden">
+                </label></div>
+                <button onclick="saveEditProduct()" class="w-full bg-derinOrange text-white py-3 rounded-lg font-bold text-sm cursor-pointer"><i class="fa-solid fa-check"></i> <span data-i18n="save">پاشەکەوتکردن</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مۆداڵی دەستکاری پۆلێن -->
+    <div id="categoryEditModal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-[80] flex items-end justify-center modal-overlay">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-lg rounded-t-3xl modal-content max-h-[92vh] overflow-y-auto">
+            <div class="sticky top-0 flex justify-between items-center p-4 z-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-b dark:border-gray-700">
+                <h3 class="font-black text-lg text-derinOrange"><i class="fa-solid fa-pen"></i> <span data-i18n="edit_category">دەستکاریکردنی پۆلێن</span></h3>
+                <button onclick="closeCategoryEditModal()" class="text-gray-400 text-3xl leading-none cursor-pointer">&times;</button>
+            </div>
+            <div class="p-4 space-y-3">
+                <div><label class="text-sm font-bold block mb-1" data-i18n="cat_name">ناوی پۆلێن *</label>
+                <input type="text" id="editCatName" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                <div><label class="text-sm font-bold block mb-2"><i class="fa-solid fa-image text-derinOrange"></i> <span data-i18n="cat_image">وێنەی پۆلێن *</span></label>
+                <div id="editCatImagePreview" class="mb-2"></div>
+                <label class="file-upload-btn flex flex-col items-center justify-center p-3 rounded-xl cursor-pointer">
+                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-derinOrange mb-1"></i>
+                    <span class="text-xs font-bold text-gray-600 dark:text-gray-300" data-i18n="upload_image">هەڵبژاردنی وێنە</span>
+                    <input type="file" id="editCatImage" accept="image/*" onchange="handleEditCategoryImage(event)" class="hidden">
+                </label></div>
+                <button onclick="saveEditCategory()" class="w-full bg-derinOrange text-white py-3 rounded-lg font-bold text-sm cursor-pointer"><i class="fa-solid fa-check"></i> <span data-i18n="save">پاشەکەوتکردن</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مۆداڵی پسوولە -->
+    <div id="receiptModal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-[90] flex items-center justify-center modal-overlay p-3">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-lg rounded-2xl modal-content max-h-[95vh] overflow-y-auto">
+            <div class="sticky top-0 flex justify-between items-center p-3 bg-gradient-to-l from-derinOlive to-derinOliveDark text-white z-20 rounded-t-2xl no-print">
+                <h3 class="font-black text-lg flex items-center gap-2"><i class="fa-solid fa-receipt"></i> <span data-i18n="receipt">پسوولە</span></h3>
+                <div class="flex items-center gap-2">
+                    <button onclick="printReceipt()" class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-lg shadow-emerald-700/40 ring-2 ring-emerald-300/40 transition-all cursor-pointer">
+                        <i class="fa-solid fa-print text-sm"></i> <span data-i18n="print">چاپکردن</span>
+                    </button>
+                    <button onclick="closeReceiptModal()" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white text-xl leading-none cursor-pointer">&times;</button>
+                </div>
+            </div>
+            
+            <div id="receiptPrintArea" class="p-4">
+                <div class="receipt-paper rounded-xl shadow-inner border-2 border-gray-200">
+                    <div class="receipt-header">
+                        <div class="receipt-watermark">Derin</div>
+                        <div class="flex flex-col items-center relative z-10">
+                            <div class="w-16 h-16 rounded-full bg-white border-3 border-derinOrange flex items-center justify-center mb-2 overflow-hidden" style="border-width:3px;">
+                                <div id="receiptLogo" class="text-derinOrange text-[10px] font-black text-center leading-tight italic">Derin<br>Collection</div>
+                            </div>
+                            <h1 class="text-2xl font-black mb-1">Derin Collection</h1>
+                            <p id="receiptShopPhone" class="text-xs text-white/80" dir="ltr"></p>
+                            <p id="receiptShopAddress" class="text-xs text-white/80"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-5" style="color:#1a1a1a;">
+                        <div class="flex justify-between items-start mb-4 text-sm">
+                            <div>
+                                <p class="text-gray-500 text-xs mb-1">ژمارەی پسوولە</p>
+                                <p id="receiptOrderId" class="font-black text-lg" style="color:#3A4A2A;"></p>
+                            </div>
+                            <div class="text-left" dir="ltr">
+                                <p class="text-gray-500 text-xs mb-1">Date</p>
+                                <p id="receiptDate" class="font-bold"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mb-4">
+                            <span id="receiptStatus" class="inline-block px-4 py-2 rounded-full text-white text-xs font-bold"></span>
+                        </div>
+                        
+                        <div class="receipt-divider-solid"></div>
+                        
+                        <div class="mb-4">
+                            <p class="text-xs font-bold mb-2" style="color:#3A4A2A;">زانیاری کڕیار / Customer Info</p>
+                            <div class="space-y-1 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">ناو:</span>
+                                    <span id="receiptCustomerName" class="font-bold"></span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">مۆبایل:</span>
+                                    <span id="receiptCustomerPhone" class="font-bold" dir="ltr"></span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">ناونیشان:</span>
+                                    <span id="receiptCustomerLocation" class="font-bold text-left max-w-[60%]"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="receipt-divider"></div>
+                        
+                        <div class="mb-4">
+                            <p class="text-xs font-bold mb-3" style="color:#3A4A2A;">بەرهەمەکان / Products</p>
+                            <div id="receiptItems" class="space-y-2"></div>
+                        </div>
+                        
+                        <div class="receipt-divider-solid"></div>
+                        
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">کۆی بەرهەمەکان:</span>
+                                <span id="receiptSubtotal" class="font-bold"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">گەیاندن (<span id="receiptCity"></span>):</span>
+                                <span id="receiptShipping" class="font-bold"></span>
+                            </div>
+                            <div class="receipt-divider"></div>
+                            <div class="flex justify-between items-center pt-1">
+                                <span class="font-black text-base" style="color:#3A4A2A;">کۆی گشتی:</span>
+                                <span id="receiptTotal" class="font-black text-xl" style="color:#FF6B00;"></span>
+                            </div>
+                        </div>
+                        
+                        <div id="receiptNotesSection" class="mt-4 hidden">
+                            <div class="bg-yellow-50 border-r-4 border-yellow-400 p-3 rounded">
+                                <p class="text-xs font-bold mb-1" style="color:#92400e;">تێبینی:</p>
+                                <p id="receiptNotes" class="text-sm" style="color:#78350f;"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 pt-4 border-t-2 border-dashed border-gray-300 text-center">
+                            <p class="text-xs text-gray-500 mb-1">سوپاس بۆ کڕینەکەت 🌟</p>
+                            <p class="text-[10px] text-gray-400">Thank you for your purchase</p>
+                            <div class="mt-3 flex items-center justify-center gap-3 text-gray-400 text-xs">
+                                <span id="receiptFooterPhone" dir="ltr"></span>
+                                <span>•</span>
+                                <span>Derin Collection © 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 bg-gray-50 dark:bg-gray-900 border-t dark:border-gray-700 flex gap-2 no-print">
+                <button onclick="printReceipt()" class="flex-1 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white py-2.5 rounded-xl font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-700/30 ring-2 ring-emerald-400/40 transition-all cursor-pointer">
+                    <i class="fa-solid fa-print text-base"></i> <span>چاپکردنی پسوولە</span>
+                </button>
+                <button onclick="closeReceiptModal()" class="px-5 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 py-2.5 rounded-xl font-bold text-sm cursor-pointer">داخستن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- سەبەتە (لەگەڵ پیشاندانی هیدەر) -->
+    <div id="cartApp" class="hidden px-4 pt-3 pb-24">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-black text-derinOrange" data-i18n="cart">سەبەتەی کڕین</h2>
+            <button onclick="showCustomerApp()" class="text-gray-500 text-sm flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-arrow-right"></i> <span data-i18n="back">گەڕانەوە</span></button>
+        </div>
+        <div id="cartPageItems" class="space-y-3 mb-4"></div>
+        <div id="citySelectSection" class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 mb-4">
+            <label class="font-bold block mb-2 text-sm"><i class="fa-solid fa-truck-fast text-derinOrange"></i> <span data-i18n="shipping_cost">تێچووی گەیاندن</span></label>
+            <select id="citySelect" onchange="updateCartTotals()" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></select>
+        </div>
+        <div id="cartSummary" class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700">
+            <div class="flex justify-between text-sm mb-2"><span data-i18n="products_total">کۆی بەرهەمەکان:</span><span id="cartSubtotal" class="font-bold"></span></div>
+            <div class="flex justify-between text-sm mb-2"><span data-i18n="shipping_cost_label">تێچووی گەیاندن:</span><span id="cartShipping" class="font-bold"></span></div>
+            <div class="flex justify-between font-bold text-lg pt-2 border-t dark:border-gray-700"><span data-i18n="grand_total">کۆی گشتی:</span><span class="text-derinOrange" id="cartGrandTotal"></span></div>
+            <button onclick="openCheckoutForm()" class="w-full bg-derinOrange text-white py-3 rounded-lg font-bold mt-4 flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-credit-card"></i> <span data-i18n="checkout">تەواوکردنی کڕین</span></button>
+            <button onclick="showCustomerApp()" class="w-full bg-white dark:bg-gray-700 text-derinOrange border-2 border-derinOrange py-3 rounded-lg font-bold mt-3 flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-arrow-left"></i> <span data-i18n="continue_shopping">بەردەوامبوون لە کڕین</span></button>
+        </div>
+    </div>
+
+    <!-- فۆرمی داواکاری -->
+    <div id="checkoutModal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-[60] flex items-end justify-center modal-overlay">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-lg rounded-t-3xl p-6 modal-content max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-black text-lg text-derinOrange"><i class="fa-solid fa-clipboard-check"></i> <span data-i18n="order_info">زانیاری داواکاری</span></h3>
+                <button onclick="closeCheckoutForm()" class="text-gray-400 text-2xl cursor-pointer">&times;</button>
+            </div>
+            <div class="space-y-3">
+                <div><label class="text-sm font-bold block mb-1"><i class="fa-solid fa-user text-derinOrange text-xs"></i> <span data-i18n="your_name">ناوی تەواو</span></label>
+                <input type="text" id="checkoutName" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-3 rounded-lg text-sm"></div>
+                <div><label class="text-sm font-bold block mb-1"><i class="fa-solid fa-phone text-derinOrange text-xs"></i> <span data-i18n="your_phone">ژمارەی مۆبایل</span></label>
+                <input type="tel" id="checkoutPhone" placeholder="07XX XXX XXXX" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-3 rounded-lg text-sm" dir="ltr"></div>
+                <div><label class="text-sm font-bold block mb-1"><i class="fa-solid fa-location-dot text-derinOrange text-xs"></i> <span data-i18n="your_location">شوێن / ناونیشان</span></label>
+                <input type="text" id="checkoutLocation" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-3 rounded-lg text-sm"></div>
+                <div><label class="text-sm font-bold block mb-1"><i class="fa-solid fa-pencil text-derinOrange text-xs"></i> <span data-i18n="notes">تێبینی</span></label>
+                <textarea id="checkoutNotes" rows="3" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-3 rounded-lg text-sm resize-none"></textarea></div>
+                <div class="flex items-center gap-3 p-3 bg-green-50 dark:bg-gray-700 rounded-lg border-2 border-green-200 dark:border-green-800">
+                    <input type="checkbox" id="sendToWhatsapp" class="w-5 h-5 accent-green-500 cursor-pointer">
+                    <label for="sendToWhatsapp" class="flex-1 cursor-pointer flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-2xl text-green-500"></i>
+                        <div>
+                            <p class="font-bold text-sm text-green-700 dark:text-green-400" data-i18n="send_whatsapp">ناردن بۆ واتساپ</p>
+                            <p class="text-[10px] text-gray-500 dark:text-gray-400" data-i18n="send_whatsapp_desc">داواکارییەکەت بۆ واتساپ بنێرە</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="mt-5 bg-orange-50 dark:bg-gray-700 p-3 rounded-lg">
+                <div class="flex justify-between text-sm mb-1"><span class="font-bold" data-i18n="grand_total">کۆی گشتی:</span><span id="modalTotal" class="font-bold text-derinOrange"></span></div>
+            </div>
+            <button onclick="submitOrder()" class="w-full bg-derinOrange text-white py-3 rounded-lg font-bold mt-4 flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="submit_order">ناردنی داواکاری</span></button>
+        </div>
+    </div>
+
+    <!-- ناڤیگەیشن قەوس -->
+    <nav id="customerNav" class="fixed bottom-0 w-full z-40" style="padding: 0 8px;">
+        <div class="derin-bottom-nav">
+            <div id="navHome" class="derin-nav-btn active" onclick="showCustomerApp()"><i class="fa-solid fa-house"></i><span data-i18n="home">سەرەکی</span></div>
+            <div id="navOrders" class="derin-nav-btn" onclick="showOrdersApp()"><i class="fa-solid fa-receipt"></i><span data-i18n="orders">داواکاری</span></div>
+            <div id="navContact" class="derin-nav-btn" onclick="showContactApp()"><i class="fa-solid fa-headset"></i><span data-i18n="contact">پەیوەندی</span></div>
+            <div id="navCart" class="derin-nav-btn" onclick="showCartApp()">
+                <i class="fa-solid fa-cart-shopping"></i><span data-i18n="cart">سەبەتە</span>
+                <span id="navCartBadge" class="nav-badge" style="display:none;">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- داواکاری کڕیار (لەگەڵ پیشاندانی هیدەر) -->
+    <div id="ordersApp" class="hidden px-4 pt-3 pb-24">
+        <h2 class="text-xl font-black mb-4 text-derinOrange" data-i18n="my_orders">داواکارییەکانی من</h2>
+        <div id="ordersList" class="space-y-3"></div>
+    </div>
+
+    <!-- پەیوەندی (لەگەڵ پیشاندانی هیدەر) -->
+    <div id="contactApp" class="hidden px-4 pt-3 pb-24">
+        <h2 class="text-xl font-black mb-4 text-derinOrange" data-i18n="contact_info">پەیوەندییەکان</h2>
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6 space-y-5">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-orange-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-derinOrange text-xl"><i class="fa-solid fa-phone"></i></div>
+                <div><p class="font-bold text-sm" data-i18n="phone">ژمارەی مۆبایل</p><p id="contactPhoneDisplay" class="text-gray-500 dark:text-gray-400 text-sm" dir="ltr"></p></div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-orange-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-derinOrange text-xl"><i class="fa-solid fa-globe"></i></div>
+                <div><p class="font-bold text-sm" data-i18n="website">وێبسایت</p><a id="contactWebsiteDisplay" class="text-gray-500 dark:text-gray-400 text-sm hover:text-derinOrange" dir="ltr"></a></div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-orange-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-derinOrange text-xl"><i class="fa-solid fa-location-dot"></i></div>
+                <div><p class="font-bold text-sm" data-i18n="address">ناونیشان</p><p id="contactAddressDisplay" class="text-gray-500 dark:text-gray-400 text-sm"></p></div>
+            </div>
+            <div class="pt-4 border-t dark:border-gray-700">
+                <p class="font-bold mb-3" data-i18n="social_media">تۆڕە کۆمەڵایەتییەکان</p>
+                <div class="flex gap-3 flex-wrap">
+                    <a id="socialTiktok" href="#" target="_blank" class="w-11 h-11 bg-black text-white rounded-full flex items-center justify-center text-xl hover:opacity-80"><i class="fa-brands fa-tiktok"></i></a>
+                    <a id="socialSnapchat" href="#" target="_blank" class="w-11 h-11 bg-yellow-400 text-white rounded-full flex items-center justify-center text-xl hover:opacity-80"><i class="fa-brands fa-snapchat"></i></a>
+                    <a id="socialTelegram" href="#" target="_blank" class="w-11 h-11 bg-sky-500 text-white rounded-full flex items-center justify-center text-xl hover:opacity-80"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- بەشی بەڕێوەبەر -->
+    <div id="adminApp" class="hidden">
+        <div id="adminLogin" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex flex-col items-center justify-center p-6">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-black text-derinOrange mb-2">Derin Collection</h1>
+                <p class="text-gray-500" data-i18n="admin_login">چوونەژوورەوەی بەڕێوەبەر</p>
+            </div>
+            <div class="w-full max-w-sm">
+                <input type="text" id="adminUser" class="w-full border dark:border-gray-600 dark:bg-gray-800 rounded-lg p-3 mb-3" placeholder="admin">
+                <input type="password" id="adminPass" class="w-full border dark:border-gray-600 dark:bg-gray-800 rounded-lg p-3 mb-6" placeholder="1234">
+                <button onclick="loginAdmin()" class="w-full bg-derinOrange text-white py-3 rounded-lg font-bold cursor-pointer" data-i18n="login_btn">چوونەژوورەوە</button>
+                <button onclick="hideAdminLogin()" class="w-full mt-3 text-gray-500 text-sm cursor-pointer" data-i18n="back_to_customer">گەڕانەوە</button>
+            </div>
+        </div>
+
+        <div id="adminMain" class="hidden pb-20">
+            <header class="bg-white dark:bg-gray-800 sticky top-0 z-40 shadow-sm px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <h1 class="text-xl font-black text-derinOrange" data-i18n="admin_panel">پانێڵی بەڕێوەبەر</h1>
+                    <span id="backendStatus" class="text-[10px] px-2 py-0.5 rounded-full bg-green-100 text-green-700">DB ✓</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div id="adminBellIcon" class="relative cursor-pointer" onclick="showAdminOrders()">
+                        <i class="fa-solid fa-bell text-lg text-gray-600 dark:text-gray-300"></i>
+                        <span id="adminNotifBadge" class="hidden notif-badge absolute -top-1 -right-1 text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    </div>
+                    <i class="fa-solid fa-right-from-bracket text-lg cursor-pointer text-gray-600 dark:text-gray-300 hover:text-red-500" onclick="logoutAdmin()"></i>
+                </div>
+            </header>
+
+            <div id="adminProductsView" class="px-4 pt-4">
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="bg-blue-50 dark:bg-gray-800 p-4 rounded-xl border border-blue-100 dark:border-gray-700">
+                        <p class="text-blue-500 text-sm font-bold" data-i18n="total_products">کۆی بەرهەمەکان</p>
+                        <p id="statProducts" class="text-2xl font-black text-blue-700 dark:text-blue-400">0</p>
+                    </div>
+                    <div class="bg-green-50 dark:bg-gray-800 p-4 rounded-xl border border-green-100 dark:border-gray-700">
+                        <p class="text-green-500 text-sm font-bold" data-i18n="total_orders">کۆی داواکارییەکان</p>
+                        <p id="statOrders" class="text-2xl font-black text-green-700 dark:text-green-400">0</p>
+                    </div>
+                </div>
+                <div class="relative mb-4">
+                    <i class="fa-solid fa-magnifying-glass absolute right-3 top-3 text-gray-400"></i>
+                    <input type="text" id="adminSearchInput" oninput="searchAdminProducts()" data-i18n-placeholder="search_admin" placeholder="گەڕان..." class="w-full bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl py-2 pr-10 pl-4 text-sm">
+                </div>
+                <h3 class="font-bold mb-3" data-i18n="product_list">لیستی بەرهەمەکان</h3>
+                <div class="space-y-2" id="adminProductList"></div>
+            </div>
+
+            <div id="adminAddView" class="hidden px-4 pt-4">
+                <div class="flex gap-2 mb-4 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+                    <button id="tabAddProduct" onclick="switchAddTab('product')" class="flex-1 py-2 rounded-lg font-bold bg-derinOrange text-white transition-all cursor-pointer" data-i18n="product">بەرهەم</button>
+                    <button id="tabAddCategory" onclick="switchAddTab('category')" class="flex-1 py-2 rounded-lg font-bold bg-transparent text-gray-600 dark:text-gray-300 transition-all cursor-pointer" data-i18n="category">پۆلێن</button>
+                </div>
+
+                <div id="addProductForm" class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 space-y-3">
+                    <h3 class="font-bold border-b dark:border-gray-700 pb-2"><i class="fa-solid fa-plus-circle text-derinOrange"></i> <span data-i18n="add_new_product">زیادکردنی بەرهەمی نوێ</span></h3>
+                    <div><label class="text-sm font-bold block mb-1" data-i18n="prod_name">ناوی بەرهەم *</label><input type="text" id="newProdName" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                    <div><label class="text-sm font-bold block mb-1" data-i18n="prod_desc">پێناسەی بەرهەم *</label><textarea id="newProdDescription" rows="3" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm resize-none"></textarea></div>
+                    <div>
+                        <label class="text-sm font-bold block mb-1" data-i18n="prod_price_dinar">نرخ (دینار) *</label>
+                        <input type="number" id="newProdPrice" placeholder="0" oninput="calculateNewDiscountPreview()" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm">
+                    </div>
+                    <div class="bg-orange-50/70 dark:bg-gray-700/60 p-3 rounded-xl border border-orange-200 dark:border-gray-600">
+                        <label class="text-xs font-bold block mb-2 text-derinOrange"><i class="fa-solid fa-tag"></i> نرخی داشکان</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[11px] font-bold block mb-1 text-gray-600 dark:text-gray-300">داشکاندن بە دینار (د.ع)</label>
+                                <input type="number" id="newProdDiscountIqd" placeholder="0" oninput="onNewDiscountIqdInput()" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-bold block mb-1 text-gray-600 dark:text-gray-300">داشکاندن بە دۆلار ($)</label>
+                                <input type="number" step="0.5" id="newProdDiscountUsd" placeholder="0" oninput="onNewDiscountUsdInput()" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm">
+                            </div>
+                        </div>
+                        <div id="newProdDiscountPreview" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mt-2 bg-emerald-50 dark:bg-emerald-950/40 p-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800/50 hidden">
+                            <i class="fa-solid fa-circle-check"></i> نرخی فرۆشتن: <span id="newProdFinalPrice">0</span> دینار (<span id="newProdDiscountPct">0</span>% داشکاندن)
+                        </div>
+                        <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-1.5 leading-tight">هەرکامێکیان بنووسیت لە نرخەکە دادەشکێنرێت (1$ = 1,500 دینار)</p>
+                    </div>
+                    <div><label class="text-sm font-bold block mb-1" data-i18n="prod_category">پۆلێن *</label><select id="newProdCategory" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></select></div>
+                    <div><label class="text-sm font-bold block mb-1" data-i18n="prod_status">دۆخی بەرهەم *</label>
+                    <select id="newProdStatus" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm">
+                        <option value="available" data-i18n="status_available">✅ بەردەست</option>
+                        <option value="out_of_stock" data-i18n="status_out">❌ نەماوە</option>
+                        <option value="coming_soon" data-i18n="status_soon">⏳ بەم زوانە</option>
+                    </select></div>
+                    <div><label class="text-sm font-bold block mb-2"><i class="fa-solid fa-images text-derinOrange"></i> <span data-i18n="prod_images">وێنەکان</span></label>
+                    <div id="productImagesPreview" class="grid grid-cols-4 gap-2 mb-2"></div>
+                    <label class="file-upload-btn flex flex-col items-center justify-center p-4 rounded-xl cursor-pointer">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-derinOrange mb-2"></i>
+                        <span class="text-sm font-bold text-gray-600 dark:text-gray-300" data-i18n="upload_image">هەڵبژاردنی وێنە</span>
+                        <input type="file" id="productImages" accept="image/*" multiple onchange="handleImageUpload(event)" class="hidden">
+                    </label></div>
+                    <div><label class="text-sm font-bold block mb-2"><i class="fa-solid fa-video text-derinOrange"></i> <span data-i18n="prod_video">ڤیدیۆ</span></label>
+                    <div id="productVideoPreview" class="mb-2"></div>
+                    <label class="file-upload-btn flex flex-col items-center justify-center p-4 rounded-xl cursor-pointer">
+                        <i class="fa-solid fa-file-video text-3xl text-derinOrange mb-2"></i>
+                        <span class="text-sm font-bold text-gray-600 dark:text-gray-300" data-i18n="upload_video">هەڵبژاردنی ڤیدیۆ</span>
+                        <input type="file" id="productVideo" accept="video/*" onchange="handleVideoUpload(event)" class="hidden">
+                    </label></div>
+                    <button onclick="saveProduct()" class="w-full bg-derinOrange text-white py-3 rounded-lg font-bold text-sm cursor-pointer"><i class="fa-solid fa-check"></i> <span data-i18n="add_btn">زیادکردن</span></button>
+                </div>
+
+                <div id="addCategoryForm" class="hidden bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 space-y-3">
+                    <h3 class="font-bold border-b dark:border-gray-700 pb-2"><i class="fa-solid fa-plus-circle text-derinOrange"></i> <span data-i18n="add_new_category">زیادکردنی پۆلێنی نوێ</span></h3>
+                    <div><label class="text-sm font-bold block mb-1" data-i18n="cat_name">ناوی پۆلێن *</label><input type="text" id="newCatName" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                    <div><label class="text-sm font-bold block mb-2"><i class="fa-solid fa-image text-derinOrange"></i> <span data-i18n="cat_image">وێنەی پۆلێن *</span></label>
+                    <div id="categoryImagePreview" class="mb-2"></div>
+                    <label class="file-upload-btn flex flex-col items-center justify-center p-4 rounded-xl cursor-pointer">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-derinOrange mb-2"></i>
+                        <span class="text-sm font-bold text-gray-600 dark:text-gray-300" data-i18n="upload_image">هەڵبژاردنی وێنە</span>
+                        <input type="file" id="categoryImage" accept="image/*" onchange="handleCategoryImageUpload(event)" class="hidden">
+                    </label></div>
+                    <button onclick="saveCategory()" class="w-full bg-derinOrange text-white py-3 rounded-lg font-bold text-sm cursor-pointer"><i class="fa-solid fa-check"></i> <span data-i18n="add_btn">زیادکردن</span></button>
+                    <div class="pt-3 border-t dark:border-gray-700"><p class="font-bold text-sm mb-3" data-i18n="categories_list">لیستی پۆلێنەکان</p><div id="adminCategoryList" class="space-y-2"></div></div>
+                </div>
+            </div>
+
+            <div id="adminOrdersView" class="hidden px-4 pt-4">
+                <div class="flex gap-2 mb-4 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl overflow-x-auto hide-scrollbar">
+                    <button id="tabNewOrders" onclick="switchOrderTab('new')" class="flex-1 py-2 rounded-lg font-bold bg-derinOrange text-white transition-all whitespace-nowrap text-xs px-3 cursor-pointer" data-i18n="new_orders">داواکاری نوێ</button>
+                    <button id="tabCompletedOrders" onclick="switchOrderTab('completed')" class="flex-1 py-2 rounded-lg font-bold bg-transparent text-gray-600 dark:text-gray-300 transition-all whitespace-nowrap text-xs px-3 cursor-pointer" data-i18n="order_status_completed">وەگیراوە</button>
+                    <button id="tabCancelledOrders" onclick="switchOrderTab('cancelled')" class="flex-1 py-2 rounded-lg font-bold bg-transparent text-gray-600 dark:text-gray-300 transition-all whitespace-nowrap text-xs px-3 cursor-pointer" data-i18n="order_status_cancelled">هەڵوەشاو</button>
+                </div>
+                <div id="adminOrdersList" class="space-y-3"></div>
+            </div>
+
+            <div id="adminSettingsView" class="hidden px-4 pt-4">
+                <div class="flex gap-1 mb-4 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl overflow-x-auto hide-scrollbar">
+                    <button id="tabSetShop" onclick="switchSettingsTab('shop')" class="flex-1 py-2 rounded-lg font-bold bg-derinOrange text-white transition-all whitespace-nowrap text-xs px-3 cursor-pointer" data-i18n="settings_shop">فرۆشگا</button>
+                    <button id="tabSetAccount" onclick="switchSettingsTab('account')" class="flex-1 py-2 rounded-lg font-bold bg-transparent text-gray-600 dark:text-gray-300 transition-all whitespace-nowrap text-xs px-3 cursor-pointer" data-i18n="settings_account">هەژمار</button>
+                    <button id="tabSetContact" onclick="switchSettingsTab('contact')" class="flex-1 py-2 rounded-lg font-bold bg-transparent text-gray-600 dark:text-gray-300 transition-all whitespace-nowrap text-xs px-3 cursor-pointer" data-i18n="settings_contact">پەیوەندی</button>
+                    <button id="tabSetShipping" onclick="switchSettingsTab('shipping')" class="flex-1 py-2 rounded-lg font-bold bg-transparent text-gray-600 dark:text-gray-300 transition-all whitespace-nowrap text-xs px-3 cursor-pointer" data-i18n="settings_shipping">گەیاندن</button>
+                    <button id="tabSetMore" onclick="switchSettingsTab('more')" class="flex-1 py-2 rounded-lg font-bold bg-transparent text-gray-600 dark:text-gray-300 transition-all whitespace-nowrap text-xs px-3 cursor-pointer" data-i18n="settings_more">زیاتر</button>
+                </div>
+
+                <div id="setShopForm" class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 space-y-3">
+                    <h3 class="font-bold border-b dark:border-gray-700 pb-2"><i class="fa-solid fa-store text-derinOrange"></i> <span data-i18n="shop_info">زانیاری فرۆشگا</span></h3>
+                    <div><label class="text-sm font-bold block mb-1" data-i18n="shop_name">ناوی فرۆشگا</label><input type="text" id="setShopName" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                    <div><label class="text-sm font-bold block mb-2"><i class="fa-solid fa-image text-derinOrange"></i> <span data-i18n="shop_logo">لۆگۆ</span></label>
+                    <div id="logoPreview" class="mb-2"></div>
+                    <label class="file-upload-btn flex flex-col items-center justify-center p-4 rounded-xl cursor-pointer">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-derinOrange mb-2"></i>
+                        <span class="text-sm font-bold text-gray-600 dark:text-gray-300" data-i18n="upload_logo">هەڵبژاردنی لۆگۆ</span>
+                        <input type="file" id="setLogoFile" accept="image/*" onchange="handleLogoUpload(event)" class="hidden">
+                    </label></div>
+                    <button onclick="saveShopInfo()" class="w-full bg-derinOrange text-white py-3 rounded-lg font-bold cursor-pointer" data-i18n="save">پاشەکەوتکردن</button>
+                </div>
+
+                <div id="setAccountForm" class="hidden bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 space-y-3">
+                    <h3 class="font-bold border-b dark:border-gray-700 pb-2"><i class="fa-solid fa-user-shield text-derinOrange"></i> <span data-i18n="admin_account">هەژماری بەڕێوەبەر</span></h3>
+                    <div><label class="text-sm font-bold block mb-1" data-i18n="username">ناوی بەکارهێنەر</label><input type="text" id="setUsername" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                    <div><label class="text-sm font-bold block mb-1" data-i18n="password">وشەی نهێنی (بە بەتاڵی بهێڵەرەوە ئەگەر ناتەوێ بیگۆڕی)</label><input id="setPassword" type="password" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                    <button onclick="saveAccountInfo()" class="w-full bg-derinOrange text-white py-3 rounded-lg font-bold cursor-pointer" data-i18n="save">پاشەکەوتکردن</button>
+                </div>
+
+                <div id="setContactForm" class="hidden bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 space-y-3">
+                    <h3 class="font-bold border-b dark:border-gray-700 pb-2"><i class="fa-solid fa-address-book text-derinOrange"></i> <span data-i18n="contact_info">زانیاری پەیوەندی</span></h3>
+                    <div><label class="text-sm font-bold block mb-1" data-i18n="phone">ژمارەی مۆبایل</label><input type="text" id="setPhone" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                    <div><label class="text-sm font-bold block mb-1" data-i18n="website">لینکی وێبسایت</label><input type="text" id="setWebsite" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                    <div><label class="text-sm font-bold block mb-1" data-i18n="address">ناونیشان</label><input type="text" id="setAddress" class="w-full border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                    <div class="pt-2 border-t dark:border-gray-700">
+                        <p class="font-bold text-sm mb-2" data-i18n="social_media">تۆڕە کۆمەڵایەتییەکان</p>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2"><i class="fa-brands fa-tiktok text-lg"></i><input type="text" id="setTiktok" placeholder="TikTok" class="flex-1 border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                            <div class="flex items-center gap-2"><i class="fa-brands fa-snapchat text-yellow-500 text-lg"></i><input type="text" id="setSnapchat" placeholder="Snapchat" class="flex-1 border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                            <div class="flex items-center gap-2"><i class="fa-brands fa-telegram text-sky-500 text-lg"></i><input type="text" id="setTelegram" placeholder="Telegram" class="flex-1 border dark:border-gray-600 dark:bg-gray-700 p-2 rounded text-sm"></div>
+                        </div>
+                    </div>
+                    <button onclick="saveContactInfo()" class="w-full bg-derinOrange text-white py-3 rounded-lg font-bold cursor-pointer" data-i18n="save">پاشەکەوتکردن</button>
+                </div>
+
+                <div id="setShippingForm" class="hidden bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 space-y-4">
+                    <h3 class="font-bold border-b dark:border-gray-700 pb-2"><i class="fa-solid fa-truck-fast text-derinOrange"></i> <span data-i18n="cities_management">بەڕێوەبردنی شارەکان</span></h3>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+                        <p class="font-bold text-sm mb-2" data-i18n="add_city">زیادکردنی شاری نوێ</p>
+                        <input type="text" id="newCityName" placeholder="ناوی شار" class="w-full border dark:border-gray-600 dark:bg-gray-800 p-2 rounded mb-2 text-sm">
+                        <input type="number" id="newCityCost" placeholder="تێچوو بە دینار" class="w-full border dark:border-gray-600 dark:bg-gray-800 p-2 rounded mb-2 text-sm">
+                        <button onclick="addNewCity()" class="w-full bg-derinOrange text-white py-2 rounded font-bold text-sm cursor-pointer" data-i18n="add_city_btn">زیادکردنی شار</button>
+                    </div>
+                    <div><p class="font-bold text-sm mb-2" data-i18n="cities_list">لیستی شارەکان</p><div id="citiesList" class="space-y-2"></div></div>
+                </div>
+
+                <div id="setMoreForm" class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 space-y-4">
+                    <h3 class="font-bold border-b dark:border-gray-700 pb-2"><i class="fa-solid fa-gear text-derinOrange"></i> <span data-i18n="more_settings">ڕێکخستنی زیاتر</span></h3>
+                    
+                    <!-- دۆخی هاوکاتکردنی ڕاستەوخۆ (Real-time Sync Status) -->
+                    <div class="p-3 bg-gray-50 dark:bg-gray-700/60 rounded-xl border dark:border-gray-600 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-gray-700 dark:text-gray-200"><i class="fa-solid fa-tower-broadcast text-derinOrange"></i> دۆخی هاوکاتکردن (Sync)</span>
+                            <div id="backendStatusIndicator">
+                                <span class="inline-flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-bold"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> باکێند سێرڤەر چالاکە</span>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">
+                            سیستەمەکە بە کاتی-ڕاستەقینە (WebSocket + Polling) بەستراوەتەوە؛ گۆڕانکاری لە بەرهەم و داواکارییەکان دەستبەجێ لەسەر هەموو ئامێرەکان نوێ دەبێتەوە.
+                        </p>
+                    </div>
+
+                    <!-- زەنگی ئاگاداری -->
+                    <div class="flex justify-between items-center p-3 bg-orange-50 dark:bg-gray-700 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-derinOrange text-white rounded-full flex items-center justify-center text-lg"><i class="fa-solid fa-bell"></i></div>
+                            <div>
+                                <p class="font-bold text-sm" data-i18n="order_sound">زەنگی داواکاری</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n="order_sound_desc">دەنگی زەنگ</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-block w-12 h-6 cursor-pointer">
+                            <input type="checkbox" id="setOrderSound" class="sr-only peer" onchange="toggleOrderSound()">
+                            <div class="w-12 h-6 bg-gray-300 dark:bg-gray-600 rounded-full peer-checked:bg-derinOrange transition-all"></div>
+                            <div class="absolute top-0.5 right-0.5 w-5 h-5 bg-white rounded-full transition-all peer-checked:-translate-x-6"></div>
+                        </label>
+                    </div>
+                    <button onclick="playBellSound()" class="w-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-volume-high"></i> <span data-i18n="test_bell">تاقیکردنەوە</span></button>
+
+                    <!-- ڕێکخستنی بەستەری باکێند (بۆ کاتی دپلۆی لە Netlify یان سێرڤەری دەرەکی) -->
+                    <div class="p-3 bg-blue-50/60 dark:bg-gray-700/60 rounded-xl border border-blue-100 dark:border-gray-600 space-y-2">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-server text-blue-600 dark:text-blue-400 text-sm"></i>
+                            <label class="text-xs font-bold text-gray-800 dark:text-gray-200">بەستەری باکێند سێرڤەر (بۆ Netlify یان VPS)</label>
+                        </div>
+                        <p class="text-[10px] text-gray-500 dark:text-gray-400 leading-normal">
+                            ئەگەر سایتەکەت لەسەر Netlify دانابێت، دەتوانیت ناونیشانی سێرڤەری باکێندەکەت (وەک Render یان Railway) لێرە بنووسیت:
+                        </p>
+                        <div class="flex gap-2">
+                            <input type="url" id="setBackendUrl" placeholder="نموونە: https://my-server.onrender.com" class="flex-1 border dark:border-gray-600 dark:bg-gray-800 px-2.5 py-1.5 rounded-lg text-xs font-mono text-left" dir="ltr">
+                            <button onclick="saveBackendUrlConfig()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap cursor-pointer">بەستنەوە</button>
+                        </div>
+                    </div>
+
+                    <button onclick="saveMoreInfo()" class="w-full bg-derinOrange text-white py-3 rounded-lg font-bold cursor-pointer" data-i18n="save">پاشەکەوتکردن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ناڤیگەیشنی بەڕێوەبەر -->
+    <nav id="adminNav" class="hidden fixed bottom-0 w-full z-40" style="padding: 0 8px;">
+        <div class="derin-bottom-nav">
+            <div id="adminNavProducts" class="derin-nav-btn active" onclick="showAdminProducts()"><i class="fa-solid fa-boxes-stacked"></i><span data-i18n="products">بەرهەمەکان</span></div>
+            <div id="adminNavAdd" class="derin-nav-btn" onclick="showAdminAdd()"><i class="fa-solid fa-plus-circle"></i><span data-i18n="add">زیادکردن</span></div>
+            <div id="adminNavOrders" class="derin-nav-btn" onclick="showAdminOrders()" style="position:relative;">
+                <i class="fa-solid fa-clipboard-list"></i><span data-i18n="orders">داواکاری</span>
+                <span id="adminNavNotifBadge" class="hidden notif-badge" style="position:absolute;top:2px;right:8px;background:#ef4444;color:white;font-size:10px;font-weight:bold;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;border:2px solid #3A4A2A;padding:0 4px;">0</span>
+            </div>
+            <div id="adminNavSettings" class="derin-nav-btn" onclick="showAdminSettings()"><i class="fa-solid fa-gear"></i><span data-i18n="settings">ڕێکخستن</span></div>
+        </div>
+    </nav>
+
+    <!-- ئاگاداری سەرکەوتن (Toast) -->
+    <div id="toastNotification" class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] hidden transition-all duration-300 pointer-events-none drop-shadow-2xl">
+        <div id="toastBody" class="flex items-center gap-3 bg-gray-900/95 text-white px-6 py-3.5 rounded-2xl shadow-2xl backdrop-blur-md border-2 border-emerald-500/60 text-sm font-black ring-4 ring-emerald-500/20">
+            <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-xl animate-pulse"></i>
+            <span id="toastMessage" class="tracking-wide">پەیام</span>
+        </div>
+    </div>
+
+    <!-- مۆداڵی دڵنیابوونەوە لە سڕینەوە -->
+    <div id="deleteConfirmModal" class="hidden fixed inset-0 bg-black/75 z-[95] flex items-center justify-center modal-overlay p-4" onclick="if(event.target === this) closeDeleteConfirmModal()">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-sm rounded-3xl p-6 text-center shadow-2xl modal-content space-y-4 border border-red-500/20">
+            <div class="w-16 h-16 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded-full flex items-center justify-center mx-auto text-3xl shadow-inner">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <div>
+                <h3 id="deleteConfirmTitle" class="text-xl font-black text-gray-800 dark:text-white mb-1">ئایا دڵنیایت لە سڕینەوە؟</h3>
+                <p id="deleteConfirmProdName" class="text-sm font-bold text-derinOrange mb-1 truncate px-2"></p>
+                <p id="deleteConfirmSubtext" class="text-xs text-gray-500 dark:text-gray-400">ئەم بەشە لە سیستەم دەسڕدرێتەوە.</p>
+            </div>
+            <div class="flex gap-2.5 pt-2">
+                <button id="btnConfirmDelete" onclick="handleUnifiedDeleteConfirm()" class="flex-1 bg-red-600 hover:bg-red-700 active:scale-95 text-white py-2.5 rounded-xl font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-red-600/30 cursor-pointer transition-all">
+                    <i class="fa-solid fa-trash text-xs"></i> بەڵێ، بسڕەوە
+                </button>
+                <button onclick="closeDeleteConfirmModal()" class="flex-1 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 active:scale-95 text-gray-700 dark:text-gray-200 py-2.5 rounded-xl font-bold text-xs cursor-pointer transition-all">
+                    پاشگەزبوونەوە
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مۆداڵی دڵنیابوونەوە لە ناردنی داواکاری -->
+    <div id="orderSuccessModal" class="hidden fixed inset-0 bg-black/80 z-[85] flex items-center justify-center modal-overlay p-4" onclick="if(event.target === this) closeOrderSuccessModal()">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-sm rounded-3xl p-6 text-center shadow-2xl modal-content space-y-4 border border-green-500/20">
+            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto text-3xl shadow-inner">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+                <h3 class="text-xl font-black text-gray-800 dark:text-white mb-1">داواکارییەکەت نێردرا!</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400">داواکارییەکەت بە سەرکەوتوویی لە سیستەم تۆمارکرا</p>
+                <div class="mt-2 inline-block bg-orange-50 dark:bg-gray-700 px-3 py-1 rounded-full text-derinOrange font-black text-xs" id="successOrderId">ORD-0000</div>
+            </div>
+            <div class="space-y-2 pt-2">
+                <button id="successPrintBtn" onclick="closeOrderSuccessModal(); showReceipt(currentSuccessOrderId);" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 text-white py-2.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 shadow-md shadow-emerald-600/30 cursor-pointer">
+                    <i class="fa-solid fa-print text-sm"></i> <span>پیشاندان و چاپکردنی پسوولە</span>
+                </button>
+                <button id="successWhatsappBtn" onclick="closeOrderSuccessModal(); sendOrderToWhatsappById(currentSuccessOrderId);" class="w-full bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 shadow-md shadow-green-600/30 cursor-pointer">
+                    <i class="fa-brands fa-whatsapp text-base"></i> <span>ناردنی پسوولە بۆ واتساپ</span>
+                </button>
+                <button onclick="closeOrderSuccessModal(); showOrdersApp();" class="w-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 text-gray-700 dark:text-gray-200 py-2.5 rounded-xl font-bold text-xs cursor-pointer">
+                    بینینی هەموو داواکارییەکان
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- لۆدکردنی Socket.IO و لۆژیکی سەرەکی -->
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script type="module" src="/src/app.js"></script>
+</body>
+</html>

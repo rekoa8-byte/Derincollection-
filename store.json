@@ -1,0 +1,423 @@
+{
+  "settings": {
+    "shopName": "Derin Collection",
+    "logoUrl": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAABkKADAAQAAAABAAABkAAAAAD/7QA4UGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAAA4QklNBCUAAAAAABDUHYzZjwCyBOmACZjs+EJ+/8AAEQgBkAGQAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/bAEMAAgICAgICAwICAwQDAwMEBQQEBAQFBwUFBQUFBwgHBwcHBwcICAgICAgICAoKCgoKCgsLCwsLDQ0NDQ0NDQ0NDf/bAEMBAgICAwMDBgMDBg0JBwkNDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDf/dAAQAGf/aAAwDAQACEQMRAD8A/fiiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9D9+KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/0f34ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//S/fiiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9P9+KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/1P34ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//V/fiiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiqeoX1tplhcajeNsgtYnmkb0SNSzH8hXx7pP7W9pq3jm28PxaTt0u6uVtkudxMvzNtDYBxjvjGa8HOeJ8tyqdKljqqjKo7RWrv92y13Z9JkPCObZzTrVcuoucaSvJ6K33vV6PRan2dRTEcOocdCAR+NPr3j5sKKKKACiiigAooooAKKKKACiiigD/1v34ooooAKKKKACiiigAooozzigAooyKTIoAWiiigAooooAKKKKACiiigAooooAKKKKACiiigAoopCQBk8CgBaKhS5t5W2RSo7DsrAmpqSaew2mtwooopiCiiigAooooAKKKKAMvWdLt9b0q80i7z5N7BJbybeDtkUqce+DXzZ4D/Zb8J+DvEsfiK4upr97WTzbWKTGxGBypbAySvbmvqUOjDKkN9DmlBzXi5jw9luPxFLFYykpzp6xb6fo/me/lfE+a5bhq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26+PPx1t/jh4a8dXXhXUvs8FvP5K5lQQReSGgcD5GKZBznrQB658S/2mfhf+y14M0D4V+GAfFnjC1sbXStJ8O6R/pFzLLFGsStNs4iXI3OXKnGTX0d8Fb/4oat4BsdX+L1taWPiG+LXEllacpaxPjy4mIGC4HJOT16141+z1+xj8J/2f2fWrGO58SeK7jm58Q61J9qvnJ6hWOFQdgVUNjqa+vAMUALRRRQAUUUUAf//W/fiiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAIzSbRS0UAJgUtFFABRRRQAUUUUAFFFFABS0lFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH/1/34ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/fiiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9H9+KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/0v34ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//T/fiiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9T9+KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/1f34ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//W/fiiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9f9+KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/2Q==",
+    "phone": "+964 750 123 4567",
+    "website": "www.derincollection.com",
+    "address": "هەولێر، شەقامی سەرەکی",
+    "tiktok": "R",
+    "snapchat": "F",
+    "telegram": "H",
+    "orderSound": true,
+    "cities": [
+      {
+        "name": "هەولێر",
+        "cost": 5000
+      },
+      {
+        "name": "سۆران",
+        "cost": 3000
+      },
+      {
+        "name": "دهۆک",
+        "cost": 4000
+      },
+      {
+        "name": "سلێمانی",
+        "cost": 4000
+      }
+    ],
+    "username": "admin"
+  },
+  "categories": [
+    {
+      "name": "هەموو",
+      "name_en": "All",
+      "name_ar": "الكل",
+      "image": "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&q=80&w=200",
+      "emoji": "✨"
+    },
+    {
+      "name": "چاویلگە",
+      "name_en": "Glasses",
+      "name_ar": "نظارات",
+      "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=200",
+      "emoji": "🕶️"
+    },
+    {
+      "name": "جزدان",
+      "name_en": "Wallets",
+      "name_ar": "محافظ",
+      "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&q=80&w=200",
+      "emoji": "👛"
+    },
+    {
+      "name": "سەعات",
+      "name_en": "Watches",
+      "name_ar": "ساعات",
+      "image": "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&q=80&w=200",
+      "emoji": "⌚"
+    },
+    {
+      "name": "جانتا",
+      "name_en": "Bags",
+      "name_ar": "حقائب",
+      "image": "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?auto=format&fit=crop&q=80&w=200",
+      "emoji": "👜"
+    },
+    {
+      "name": "پێنووس",
+      "name_en": "Pens",
+      "name_ar": "أقلام",
+      "image": "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=200",
+      "emoji": "✒️"
+    },
+    {
+      "name": "بۆن",
+      "name_en": "Perfumes",
+      "name_ar": "عطور",
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&q=80&w=200",
+      "emoji": "🌸"
+    }
+  ],
+  "products": [
+    {
+      "id": 201,
+      "name": "چاویلکەی ڕەیبان ئەڤیاتۆر لوکس",
+      "description": "چاویلکەی خۆری ئەسڵی دژە تیشکی سەروو بنەوشەیی UV400 بە فڕەیمی کانزایی ئاڵتوونی",
+      "price": 48000,
+      "stock": 95,
+      "category": "چاویلگە",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 34,
+      "likedBy": [],
+      "oldPrice": 60000
+    },
+    {
+      "id": 202,
+      "name": "چاویلکەی خۆری پلاریزەد ڕەش",
+      "description": "چاویلکەی شیکی مۆدێرن بۆ گەشت و شۆفێری بە لێنزی ڕەشی دژە شکان",
+      "price": 39000,
+      "stock": 100,
+      "category": "چاویلگە",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 21,
+      "likedBy": []
+    },
+    {
+      "id": 203,
+      "name": "چاویلکەی چاو پشیلەیی خانمان",
+      "description": "دیزاینی ناوازەی ئیتاڵی بە کوالیتی بەرز و کێشی زۆر سووک",
+      "price": 42000,
+      "stock": 80,
+      "category": "چاویلگە",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 29,
+      "likedBy": []
+    },
+    {
+      "id": 204,
+      "name": "چاویلکەی سپۆرت گۆڵف و شاخەوانی",
+      "description": "چاویلکەی وەرزشی بەرگەگری لە بەربوونەوە و ئارەقکردنەوە",
+      "price": 35000,
+      "stock": 70,
+      "category": "چاویلگە",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 17,
+      "likedBy": []
+    },
+    {
+      "id": 205,
+      "name": "جزدانی پێستی سروشتی دەستی",
+      "description": "دروستکراو لە پێستی مانگای 100% سروشتی بە جێگەی تایبەت بۆ پارە و کارتەکان",
+      "price": 28000,
+      "stock": 110,
+      "category": "جزدان",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 45,
+      "likedBy": []
+    },
+    {
+      "id": 206,
+      "name": "جزدانی کارتی زیرەک ئەلەمنیۆم (RFID)",
+      "description": "جزدانی قەبارە بچووکی پارێزراو دژ بە دزینی داتای کارتە بانکییەکان",
+      "price": 22000,
+      "stock": 120,
+      "category": "جزدان",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1606503829058-e4aa9820f4c9?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 38,
+      "likedBy": [],
+      "oldPrice": 28000
+    },
+    {
+      "id": 207,
+      "name": "جزدانی درێژی خانمان بە زیپ",
+      "description": "جزدانی شیک بە قەبارەی گەورە بۆ هەڵگرتنی مۆبایل، پاسپۆرت و کارتەکان",
+      "price": 34000,
+      "stock": 90,
+      "category": "جزدان",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 27,
+      "likedBy": []
+    },
+    {
+      "id": 208,
+      "name": "سەعاتی زێڕینی کلاسیک پیاوان",
+      "description": "سەعاتی بەناوبانگی ڕۆژژمێردار بە پۆڵای دژە ژەنگ و ڕەنگی زێڕینی نەگۆڕ",
+      "price": 68000,
+      "stock": 85,
+      "category": "سەعات",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 62,
+      "likedBy": [],
+      "oldPrice": 85000
+    },
+    {
+      "id": 209,
+      "name": "سەعاتی دەستی چەرم ڕەش (ئۆتۆماتیک)",
+      "description": "سەعاتی میکانیکی بە زنجیری چەرمی تایبەت و دژە ئاو تا قووڵایی ٥٠ مەتر",
+      "price": 54000,
+      "stock": 75,
+      "category": "سەعات",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 48,
+      "likedBy": []
+    },
+    {
+      "id": 210,
+      "name": "سەعاتی لوکسی خانمان بە نەخشی ئەڵماس",
+      "description": "سەعاتی ناسکی زێڕی گوڵی (Rose Gold) بە بریقە و جوانی بێوێنە",
+      "price": 59000,
+      "stock": 80,
+      "category": "سەعات",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 51,
+      "likedBy": []
+    },
+    {
+      "id": 211,
+      "name": "جانتای دەستی پێستی ئەسڵی خانمان",
+      "description": "جانتای قەبارە مامناوەندی گونجاو بۆ بۆنە فەرمییەکان و ڕۆژانە بە کوالیتی گەرەنتیکراو",
+      "price": 58000,
+      "stock": 90,
+      "category": "جانتا",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 73,
+      "likedBy": [],
+      "oldPrice": 72000
+    },
+    {
+      "id": 212,
+      "name": "جانتای سەفەری دەستی پێستی قاوەیی",
+      "description": "جانتای گەورەی لوکس بۆ سەفەر و وەرزش بە دیزاینی ڤینتیجی ئەورووپی",
+      "price": 74000,
+      "stock": 65,
+      "category": "جانتا",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 40,
+      "likedBy": []
+    },
+    {
+      "id": 213,
+      "name": "جانتای مۆدێرنی پشتی بۆ لاپتۆپ",
+      "description": "جانتای پشتی دژە ئاو بە دەرچەی شەحنکردنەوە و شوێنی تایبەت بە کۆمپیوتەر",
+      "price": 46000,
+      "stock": 100,
+      "category": "جانتا",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1546938576-6e6a64f317cc?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 36,
+      "likedBy": []
+    },
+    {
+      "id": 214,
+      "name": "پێنووسی پاركەری لوکس دیاری",
+      "description": "پێنووسی فەرمی لە قوتووی ڕەقی مەخمەڵی تایبەت بە واژووکردن و بەڕێوەبەران",
+      "price": 26000,
+      "stock": 110,
+      "category": "پێنووس",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 25,
+      "likedBy": []
+    },
+    {
+      "id": 215,
+      "name": "پێنووسی مەرەکەبی مۆنت بلانک ستایل",
+      "description": "پێنووسی سەر زێڕینی ئاست بەرز بۆ دەستوخەتی جوان و کۆبوونەوە گرنگەکان",
+      "price": 36000,
+      "stock": 75,
+      "category": "پێنووس",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 31,
+      "likedBy": []
+    },
+    {
+      "id": 216,
+      "name": "بۆنی عوود و عەنبەری شاهانە (100ml)",
+      "description": "بۆنی مانەوەی زۆر بەهێز بە تێکەڵەی عوودی کامبۆدی و عەنبەری گەرم",
+      "price": 68000,
+      "stock": 90,
+      "category": "بۆن",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 88,
+      "likedBy": [],
+      "oldPrice": 85000
+    },
+    {
+      "id": 217,
+      "name": "بۆنی فەرەنسی گوڵ و ڤانێلا (80ml)",
+      "description": "بۆنی ئارامبەخش و ناسکی خانمان بۆ شەوان و جەژنە تایبەتەکان",
+      "price": 55000,
+      "stock": 100,
+      "category": "بۆن",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 64,
+      "likedBy": []
+    },
+    {
+      "id": 218,
+      "name": "بۆنی فێنکی پیاوانەی ئۆقیانووس (100ml)",
+      "description": "بۆنی هێورکەرەوە و تازەی هاوینە بە پێکهاتەی سیتڕەس و دار سێدار",
+      "price": 49000,
+      "stock": 85,
+      "category": "بۆن",
+      "status": "available",
+      "images": [
+        "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600"
+      ],
+      "video": "",
+      "likes": 57,
+      "likedBy": []
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-5090",
+      "items": [
+        {
+          "id": 218,
+          "name": "بۆنی فێنکی پیاوانەی ئۆقیانووس (100ml)",
+          "price": 49000,
+          "image": "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+          "qty": 1
+        }
+      ],
+      "subtotalIqd": 49000,
+      "city": "هەولێر",
+      "shippingCost": 5000,
+      "totalIqd": 54000,
+      "date": "29/09/2026",
+      "status": "completed",
+      "customer": {
+        "name": "F",
+        "phone": "4",
+        "location": "S",
+        "notes": "H"
+      }
+    },
+    {
+      "id": "ORD-9140",
+      "items": [
+        {
+          "id": 218,
+          "name": "بۆنی فێنکی پیاوانەی ئۆقیانووس (100ml)",
+          "price": 49000,
+          "image": "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+          "qty": 1
+        }
+      ],
+      "subtotalIqd": 49000,
+      "city": "هەولێر",
+      "shippingCost": 5000,
+      "totalIqd": 54000,
+      "date": "29/09/2026",
+      "status": "cancelled",
+      "customer": {
+        "name": "F",
+        "phone": "4",
+        "location": "S",
+        "notes": "H"
+      }
+    }
+  ],
+  "users": [
+    {
+      "id": "admin-system-id",
+      "username": "admin",
+      "password_hash": "$2b$10$zPQlNlcegVi5naZoM0XoWuZ6Ny.wvoxq45PtSVsusQ3Wtsd90pZsW",
+      "role": "manager",
+      "status": "active",
+      "profile": {
+        "name": "System Manager"
+      },
+      "created_at": "2026-09-29T10:42:52.274Z"
+    }
+  ]
+}
