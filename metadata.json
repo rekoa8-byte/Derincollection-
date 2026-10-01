@@ -1,7 +1,0 @@
-{
-  "name": "Derin Collection",
-  "description": "سیستەمی فرۆشتنی مۆدێرنی Derin Collection بۆ کڕیار و بەڕێوەبەر بە زمانی کوردی، عەرەبی، و ئینگلیزی.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
-
